@@ -1,0 +1,14 @@
+.todos-lists__item {
+  border-left: 10px solid transparent;
+  cursor: pointer;
+  width: 300px;
+
+  &:hover {
+    border-left: 10px solid green;
+  }
+
+  &--selected {
+    border-left: 10px solid green;
+    font-weight: 500;
+  }
+}
