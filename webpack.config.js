@@ -2,26 +2,48 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const JS = path.resolve(__dirname, 'js');
 const DIST = path.resolve(__dirname, 'dist');
+const NODE_MODULES_PATH = path.resolve(__dirname, './node_modules');
 
-module.exports = () => {
+const getPlugins = isProduction => [
+	new webpack.DefinePlugin({
+		__IS_PRODUCTION__: JSON.stringify(isProduction)
+	}),
+	new HtmlWebpackPlugin({
+		chunks: ['index'],
+		filename: path.join(DIST, 'index.html'),
+		template: path.join(__dirname, 'index.html')
+	}),
+	new MiniCssExtractPlugin({
+		publicPath: '',
+		filename: './[name].[hash].css'
+	}),
+	new CleanWebpackPlugin()
+];
+
+module.exports = env => {
+	const isProduction = env && env.production;
+
     return {
-        entry: './js/index.js',
+		mode: isProduction ? 'production' : 'development',
         resolve: {
-            modules: [JS, path.resolve(__dirname, 'node_modules')],
-            extensions: ['.js']
-        },
-        output: {
+			modules: [NODE_MODULES_PATH],
+			extensions: ['.js']
+		},
+		entry: {
+			index: path.join(__dirname, 'js/index.js')
+		},
+            output: {
+            publicPath: '',
             path: DIST,
-            filename: 'index.js',
-            publicPath: '/'
-        },
-        devtool: "source-map",
+            filename: '[name].[hash].js'
+		},
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(js)$/,
                     exclude: /node_modules/,
                     use: {
                         loader: 'babel-loader',
@@ -54,22 +76,14 @@ module.exports = () => {
 							}
 						},
 						{
-							loader: 'sass-loader'
+                            loader: 'sass-loader',
 						}
 					]
 				}
             ]
         },
         devServer: {historyApiFallback: true},
-        plugins: [
-            new HtmlWebpackPlugin({
-                filename: path.join(DIST, 'index.html'),
-                template: path.resolve(__dirname, 'index.html')
-            }),
-            new MiniCssExtractPlugin({
-                publicPath: '',
-                filename: './style.css'
-            })
-        ]
+        plugins: getPlugins(isProduction),
+        devtool: "source-map",
     }
 }
