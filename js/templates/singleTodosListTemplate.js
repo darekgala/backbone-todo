@@ -42,7 +42,7 @@ export const getSingleTodosListTemplate = listName => `
         </div>
 
         <div class="col-3 d-flex justify-content-center">
-          <button class="btn btn-primary text-uppercase" submit>Dodaj zadanie</button>
+          <button class="btn btn-primary text-uppercase" submit>&#43;</button>
         </div>
       </form>
     </div>

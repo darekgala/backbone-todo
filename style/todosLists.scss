@@ -1,14 +1,28 @@
-.todos-lists__item {
-  border-left: 10px solid transparent;
-  cursor: pointer;
-  width: 300px;
+.todos-lists {
+  $border: 1px solid #dee2e6;
+  border-bottom: $border;
 
-  &:hover {
-    border-left: 10px solid green;
+  &__icon {
+    cursor: pointer;
+    padding: 5px;
   }
 
-  &--selected {
-    border-left: 10px solid green;
-    font-weight: 500;
+  &__item {
+    border-left: 10px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      border-left: 10px solid green;
+    }
+
+    &--selected {
+      border-left: 10px solid green;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 300px;
+    border-right: $border;
   }
 }
