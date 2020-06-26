@@ -1,0 +1,4 @@
+.todos-lists{border-bottom:1px solid #dee2e6}.todos-lists__icon{cursor:pointer;padding:5px}.todos-lists__item{border-left:10px solid transparent;cursor:pointer}.todos-lists__item:hover{border-left:10px solid green}.todos-lists__item--selected{border-left:10px solid green;font-weight:500}@media screen and (min-width: 768px){.todos-lists{width:300px;border-right:1px solid #dee2e6}}.single-todos-list{width:100%}main{flex-grow:1;flex-direction:column}@media screen and (min-width: 768px){main{flex-direction:row}}#app{min-height:100vh}
+
+
+/*# sourceMappingURL=index.1d57454be54333f8355e.css.map*/
